@@ -9,21 +9,21 @@ app.use(express.json());
 app.use(cors());
 
 var config = {
-  apiKey: "AIzaSyByhKEwidb7nKUmv4t0XNT2fRCxCZ_Evjk",
-  authDomain: "react-project-7ea16.firebaseapp.com",
-  databaseURL: "https://react-project-7ea16.firebaseio.com",
-  projectId: "react-project-7ea16",
-  storageBucket: "react-project-7ea16.appspot.com",
-  messagingSenderId: "908284546668",
-  appId: "1:908284546668:web:8e710f683568bb7a821249",
-  measurementId: "G-CNRLWRDGYR",
+  apiKey: "AIzaSyDteZhWWJFtI7-OwZa5DNJSVTLNg3bTML0",
+  authDomain: "farm-mate-v2.firebaseapp.com",
+  databaseURL: "https://farm-mate-v2-default-rtdb.firebaseio.com",
+  projectId: "farm-mate-v2",
+  storageBucket: "farm-mate-v2.appspot.com",
+  messagingSenderId: "709150591055",
+  appId: "1:709150591055:web:875dab586b8dcb8ec3823a",
+  measurementId: "G-89THQVRTRF"
 };
 firebase.initializeApp(config);
 
 app.get("/:id", function (req, res) {
-  console.log("HTTP Get Request");
+  console.log("HTTP Gett Request");
   var id = req.params.id;
-  var userReference = firebase.database().ref("/Data/" + id);
+  var userReference = firebase.database().ref("/application/" + id);
 
   userReference.on(
     "value",
@@ -40,8 +40,8 @@ app.get("/:id", function (req, res) {
 });
 
 app.get("/", function (req, res) {
-  console.log("HTTP Get Request");
-  var userReference = firebase.database().ref("/Data/");
+  console.log("HTTP Gets Request");
+  var userReference = firebase.database().ref("/application/");
 
   userReference.on(
     "value",
@@ -56,7 +56,7 @@ app.get("/", function (req, res) {
     }
   );
 });
-
+{/*
 app.put("/:id", function (req, res) {
   console.log("HTTP Put Request");
 
@@ -118,6 +118,7 @@ app.delete("/:id", function (req, res) {
   });
   //todo
 });
+*/} 
 
 const port = process.env.PORT || 3000;
 app.listen(port, function () {

@@ -14,14 +14,18 @@ export default class List extends React.Component {
 
   getData = () => {
     Axios.get("http://localhost:3000").then((res) => {
-      let words = res.data;
+      let dataApplication = res.data;
       let newState = [];
-      for (let word in words) {
+      for (let key in dataApplication) {
         newState.push({
-          Id: word,
-          Author: words[word].Author,
-          Description: words[word].Description,
-          Title: words[word].Title,
+          Id: key,
+          Date: dataApplication[key].Date,
+          Humidity: dataApplication[key].Humidity,
+          MaxTemp: dataApplication[key].MaxTemp,
+          MinTemp: dataApplication[key].MinTemp,
+          NextValve: dataApplication[key].NextValve,
+          Rain: dataApplication[key].Rain,
+          StartData: dataApplication[key].StartData
         });
       }
       this.setState({
@@ -30,66 +34,43 @@ export default class List extends React.Component {
     });
   };
 
-  deleteData = (id) => {
-    Axios.delete(`http://localhost:3000/${id}`).then((res) => {
-      alert("Berhasil Delete Data");
-      this.getData();
-    });
-  };
-
-  handleButtonDeleteClick = (id) => {
-    this.deleteData(id);
-  };
-
-  handleUpdateClick = (data) => {
-    this.props.history.push("/edit", { data });
-  };
 
   render() {
     return (
       <div class="container">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">LIST TABEL</h3>
+            <h3 class="panel-title">Test express connect frontend</h3>
           </div>
           <div class="panel-body">
-            <h4>
-              <Link to="/" class="btn btn-primary">
-                Tambah Tabel
-              </Link>
-            </h4>
             <table class="table table-stripe">
               <thead>
                 <tr>
-                  <th>Judul</th>
-                  <th>Isi</th>
-                  <th>Pembuat</th>
-                  <th>Update</th>
-                  <th>Delete</th>
+                  <th>ID-Farm</th>
+                  <th>Humidity</th>
+                  <th>MaxTemp</th>
+                  <th>MinTemp</th>
+                  <th>NextValve</th>
+                  <th>Rain</th>
+                  <th>StartData</th>
                 </tr>
               </thead>
               <tbody>
                 {this.state.data.map((data) => (
                   <tr>
                     <td>
-                      <Link to={`/show/${data.Id}`}>{data.Title}</Link>
+                      <Link to={`/edit/${data.Id}`}>{data.Id}</Link>
                     </td>
-                    <td>{data.Description}</td>
-                    <td>{data.Author}</td>
-                    <td>
-                      <Link to={`/edit/${data.Id}`} class="btn btn-success">Edit</Link>&nbsp;
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => this.handleButtonDeleteClick(data.Id)}
-                        class="btn btn-danger"
-                      >
-                        Delete
-                      </button>
-                    </td>
+                    <td>{data.Humidity}</td>
+                    <td>{data.MaxTemp}</td>
+                    <td>{data.MinTemp}</td>
+                    <td>{data.NextValve}</td>
+                    <td>{data.Rain}</td>
+                    <td>{data.StartData}</td>
                   </tr>
                 ))}
               </tbody>
+
             </table>
           </div>
         </div>
